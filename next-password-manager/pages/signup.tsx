@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
+
+
 export default function Home() {
   return (
     <>
@@ -11,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon1.ico" />
       </Head>
       <main className={styles.main}>
-        <form>
+        <form method='POST' action='/api/signup/'>
           <div className='container'>
             <p>Для регистрации укажите ваше имя, логин и пароль.</p>
             <label htmlFor="name"><b>Имя</b></label>
