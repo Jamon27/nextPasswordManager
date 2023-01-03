@@ -37,3 +37,6 @@ next-env.d.ts
 
 # debug
 pages/debugPage.tsx
+
+# database
+*.db
