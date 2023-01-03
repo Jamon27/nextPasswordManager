@@ -8,7 +8,6 @@ export default async function handler(
     res: NextApiResponse
 ) {
     //if (!req.body.token) return res.status(401).send("You don't have access!");
-
     const sqlite3 = require('sqlite3').verbose();
     const db = new sqlite3.Database('passwordManager.db');
 

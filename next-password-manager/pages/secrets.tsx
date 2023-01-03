@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Secret from '../components/secret'
+import Secret from '../components/Secret'
 import styles from '../styles/Home.module.css'
 let secrets = [
   {
