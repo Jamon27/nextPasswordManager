@@ -37,6 +37,10 @@ next-env.d.ts
 
 # debug
 pages/debugPage.tsx
+*.debug
 
 # database
 *.db
+
+# power point
+*.pptm
