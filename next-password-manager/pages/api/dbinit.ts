@@ -1,17 +1,18 @@
 import type {
     //NextApiRequest,
     NextApiResponse
-} from 'next'
+} from 'next';
+import createDbConnection from '../../db/db';
+
 
 export default async function handler(
     //req: NextApiRequest,
     res: NextApiResponse
 ) {
     //if (!req.body.token) return res.status(401).send("You don't have access!");
-    const sqlite3 = require('sqlite3').verbose();
-    const db = new sqlite3.Database('passwordManager.db');
+    const db = createDbConnection();
 
-    db.run(
+    db.exec(
         `CREATE TABLE if not exists Users (
             Id INTEGER PRIMARY KEY,
             UserName NVARCHAR(255),
@@ -45,6 +46,7 @@ export default async function handler(
             FOREIGN KEY (ApplicationId) REFERENCES Applications (Id) 	   
         );`
     );
+    
     db.close();
-    res.status(200).send("Ok!");
+    res.status(200).send("Db has been created!");
 }
