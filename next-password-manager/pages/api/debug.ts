@@ -1,4 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next';
+import createDbConnection from '../../db/db';
+import util from 'util';
 
 export default function handler(
     req: NextApiRequest,
@@ -8,20 +10,20 @@ export default function handler(
     if (environment !== "development") {
         return res.status(500).send("Something went wrong");
     }
-
-    const sqlite3 = require('sqlite3').verbose();
-    const db = new sqlite3.Database('passwordManager.db');
+    const db = createDbConnection();
 
     const query = "SELECT * FROM Users"
 
-    let users: any = [];
-    db.all(query, [], (err: any, rows: any) => {
-        if (err) {
-            throw err;
-        }
-        console.log(users);
-    });
-
-    db.close();
-    res.status(200).send('');
+    let getAllPromise = util.promisify(db.all.bind(db));
+    getAllPromise(query)
+        .finally(() => {
+            db.close();
+        })
+        .then(result => {
+            console.log(result);
+            res.status(200).send(result);
+        }, error => {
+            console.log(error);
+            res.status(500).send(error);
+        });
 }
