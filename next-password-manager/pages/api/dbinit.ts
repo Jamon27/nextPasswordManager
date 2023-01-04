@@ -1,15 +1,11 @@
-import type {
-    //NextApiRequest,
-    NextApiResponse
-} from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import createDbConnection from '../../db/db';
 
 
 export default async function handler(
-    //req: NextApiRequest,
+    req: NextApiRequest,
     res: NextApiResponse
 ) {
-    //if (!req.body.token) return res.status(401).send("You don't have access!");
     const db = createDbConnection();
 
     db.exec(
@@ -46,7 +42,7 @@ export default async function handler(
             FOREIGN KEY (ApplicationId) REFERENCES Applications (Id) 	   
         );`
     );
-    
+
     db.close();
     res.status(200).send("Db has been created!");
 }
